@@ -13,17 +13,40 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState({0:0, 1:0, 2:0, 3:0, 4:0, 5:0})
 
   const handleClick = () => {
     const random = Math.round(Math.random()*(anecdotes.length-1))
     setSelected(random)
-    console.log(random)
   }
+
+  const handleVote = () => {
+    const copy = {...votes}
+    copy[selected] +=1
+    setVotes(copy)
+  }
+
+  const generateTheHighest = () => {
+      let number = 0
+      for (let i=0; i<anecdotes.length; i++) {
+          if(votes[i] > votes[number]) number = i
+      }
+      return number
+  }
+
+  const index = generateTheHighest()
+
 
   return (
     <div>
+      <h1>Anecdote of the day</h1> 
       <p>{anecdotes[selected]}</p>
+      <p>has {votes[selected]} votes</p>
       <Button text='random' handleClick={handleClick} />
+      <Button text='vote' handleClick={handleVote} />
+      <h1>Anecdote with most votes</h1>
+      <p>{anecdotes[index]}</p>
+      <p> has {votes[index]} votes</p>
     </div>
   )
 }
