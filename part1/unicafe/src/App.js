@@ -3,7 +3,9 @@ import React, { useState } from 'react'
 const Header = () => <h1>Give feedback</h1>
 
 const Statistics = ({ good, bad, neutral, score }) => {
-  
+  if (good+bad+neutral === 0) {
+    return <h2>No feedback given</h2>
+  } else 
   return (
     <div>
       <p>Good {good} </p>
@@ -14,7 +16,6 @@ const Statistics = ({ good, bad, neutral, score }) => {
       <p>Positive {good*100/(good+bad+neutral)} %</p>
     </div>
   )
-  
 }
 
 const Button = ({ text, handleClick}) => <button onClick={handleClick}>{text}</button>
