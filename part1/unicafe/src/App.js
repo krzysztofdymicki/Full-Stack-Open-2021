@@ -2,18 +2,20 @@ import React, { useState } from 'react'
 
 const Header = () => <h1>Give feedback</h1>
 
+const Statistic = ({ text, value }) => <p>{text} {value} </p>
+
 const Statistics = ({ good, bad, neutral, score }) => {
   if (good+bad+neutral === 0) {
     return <h2>No feedback given</h2>
   } else 
   return (
     <div>
-      <p>Good {good} </p>
-      <p>Bad {bad} </p>
-      <p>Neutral {neutral} </p>
-      <p>All {good+bad+neutral}</p>
-      <p>Average {score/(good+bad+neutral)}</p>
-      <p>Positive {good*100/(good+bad+neutral)} %</p>
+      <Statistic text='good' value={good} />
+      <Statistic text='bad' value={bad} />
+      <Statistic text='neutral' value={neutral} />
+      <Statistic text='all' value={good+bad+neutral} />
+      <Statistic text='average' value={score/(good+bad+neutral)} />
+      <Statistic text='positive' value={`${good*100/(good+bad+neutral)} %`} />
     </div>
   )
 }
