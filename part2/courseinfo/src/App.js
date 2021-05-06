@@ -34,8 +34,10 @@ const Course = ({ course }) => {
 }
 
 const App = () => {
-    const course = {
+    const courses = [
+      {
         name:'Half Stack application development',
+        id: 1,
         parts: [
             {
             name: 'Fundamentals of React',
@@ -57,11 +59,28 @@ const App = () => {
             id: 4
           }
     ]
+    },
+    {
+      name: 'Node.js',
+      id: 2,
+      parts: [
+        {
+          name: 'Routing',
+          excercises: 3,
+          id: 1
+        },
+        {
+          name: 'Middlewares',
+          excercises: 7,
+          id: 2
+        }
+      ]
     }
+  ]
 
     return (
       <div>
-        <Course course={course} />
+        {courses.map(c => <Course course={c} key={c.id} />)}
       </div>
     )
     
