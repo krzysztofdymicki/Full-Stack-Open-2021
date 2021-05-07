@@ -3,6 +3,7 @@ import axios from 'axios'
 import Form from './components/Form'
 import Filter from './components/Filter'
 import Persons from './components/Persons'
+import { getAll, addPerson } from './services/persons'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
@@ -15,11 +16,8 @@ const App = () => {
   const [ filter, setFilter ] = useState('')
 
   useEffect(() => {
-    axios
-        .get('http://localhost:3001/persons')
-        .then(response => {
-          setPersons(response.data)
-        })
+    getAll()
+            .then(persons => setPersons(persons))
   },[])
 
   const handleSubmit = (event) => {
@@ -29,9 +27,8 @@ const App = () => {
       name: newName,
       number: newNumber
     }
-    axios
-        .post('http://localhost:3001/persons', newObject)
-        .then(response => setPersons(persons.concat(newObject)))
+    addPerson(newObject)
+                        .then(newPerson => setPersons(persons.concat(newPerson)))
     setNewName('')}
     else window.alert(`${newName} already exists`)
   }
