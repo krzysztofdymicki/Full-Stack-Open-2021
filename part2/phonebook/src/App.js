@@ -30,7 +30,7 @@ const App = () => {
       number: newNumber
     }
     axios
-        .post('http://localhost:3001/persons')
+        .post('http://localhost:3001/persons', newObject)
         .then(response => setPersons(persons.concat(newObject)))
     setNewName('')}
     else window.alert(`${newName} already exists`)
@@ -45,7 +45,7 @@ const App = () => {
   }
 
   const handleFilterChange = (event) => {
-    setFilter(event.target.value)
+    setFilter(event.target.value.toLowerCase())
   }
 
   return (
