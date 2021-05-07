@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import Form from './components/Form'
 import Filter from './components/Filter'
 import Persons from './components/Persons'
-import { getAll, addPerson } from './services/persons'
+import personServices from './services/persons'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
@@ -16,8 +15,8 @@ const App = () => {
   const [ filter, setFilter ] = useState('')
 
   useEffect(() => {
-    getAll()
-            .then(persons => setPersons(persons))
+    personServices.getAll()
+                          .then(persons => setPersons(persons))
   },[])
 
   const handleSubmit = (event) => {
@@ -27,8 +26,8 @@ const App = () => {
       name: newName,
       number: newNumber
     }
-    addPerson(newObject)
-                        .then(newPerson => setPersons(persons.concat(newPerson)))
+    personServices.addPerson(newObject)
+                                      .then(newPerson => setPersons(persons.concat(newPerson)))
     setNewName('')}
     else window.alert(`${newName} already exists`)
   }
