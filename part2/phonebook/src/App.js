@@ -21,7 +21,7 @@ const App = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (persons.find(p => p.name !== newName))
+    if (!persons.find(p => p.name === newName))
     {const newObject = {
       name: newName,
       number: newNumber
@@ -45,8 +45,12 @@ const App = () => {
   }
 
   const handleDeletePerson = (id) => {
-    personServices.deletePerson(id)
-                                  .then(response => setPersons(persons.filter(p => p.id !== id )))
+    const deletedPerson = persons.find(p => p.id === id)
+    if(window.confirm(`do you really want to delete ${deletedPerson.name} ?`)) {
+      personServices
+                    .deletePerson(id)
+                    .then(response => setPersons(persons.filter(p => p.name !== deletedPerson.name)))
+    }                      
   }
 
   return (
