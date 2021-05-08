@@ -21,15 +21,25 @@ const App = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (!persons.find(p => p.name === newName))
+    if (!persons.find(p => p.name === newName || p.number === newNumber))
     {const newObject = {
       name: newName,
       number: newNumber
     }
     personServices.addPerson(newObject)
-                                      .then(newPerson => setPersons(persons.concat(newPerson)))
-    setNewName('')}
-    else window.alert(`${newName} already exists`)
+                                      .then(newPerson => setPersons(persons.concat(newPerson)))}
+    else if (persons.find(p => p.name === newName && p.number === newNumber)) window.alert(`${newName} with the number ${newNumber} already exists`)
+    else {
+      const personToUpdate = persons.find(p => p.name === newName || p.number === newNumber)
+      const updatedPerson = { name: newName, number: newNumber }
+      if(window.confirm(`Do you really want to update person ${personToUpdate.name} ${personToUpdate.number} with ${updatedPerson.name} ${updatedPerson.number} ?`)) {
+        personServices
+                      .updatePerson(personToUpdate.id,updatedPerson)
+                      .then(response => setPersons(persons.map(p => p.id === response.id ? response : p)))
+      }
+    }
+    setNewName('')
+    setNewNumber('')
   }
 
   const handleNameChange = (event) => {

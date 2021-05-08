@@ -17,9 +17,15 @@ const addPerson = (newPerson) => {
 const deletePerson = (id) => {
     return axios
                 .delete(`${baseUrl}/${id}`)
-                .then(response => console.log(response))
+                .then(response => response.data)
 }
 
-const exp = { getAll, addPerson, deletePerson }
+const updatePerson = (id, updatedPerson) => {
+    return axios
+                .put(`${baseUrl}/${id}`, updatedPerson)
+                .then(response => response.data)
+}
 
-export default exp
+const personServices = { getAll, addPerson, deletePerson, updatePerson }
+
+export default personServices
