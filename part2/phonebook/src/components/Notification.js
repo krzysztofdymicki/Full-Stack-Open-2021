@@ -7,6 +7,9 @@ const Notification = ({ message }) => {
     else if(message.type === 'positive') {
         return <div style={{backgroundColor: 'green', fontSize: 20, padding: 40}}>{message.content}</div>
     }
+    else if(message.type === 'negative') {
+        return <div style={{backgroundColor: 'red', fontSize: 20, padding: 40}}>{message.content}</div>
+    }
     else return null
 }
 

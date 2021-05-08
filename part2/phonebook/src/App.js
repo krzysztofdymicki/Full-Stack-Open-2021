@@ -31,7 +31,8 @@ const App = () => {
     personServices.addPerson(newObject)
                                       .then(newPerson => {
                                                           setPersons(persons.concat(newPerson))
-                                                          setNotification({content: `${newPerson.name} added`, type: 'positive'})
+                                                          const message = {content: `${newPerson.name} added`, type: 'positive'}
+                                                          setNotification(message)
                                                           setTimeout(() => {
                                                             setNotification({})
                                                           },5000)
@@ -45,11 +46,19 @@ const App = () => {
                       .updatePerson(personToUpdate.id,updatedPerson)
                       .then(response =>{ 
                                         setPersons(persons.map(p => p.id === response.id ? response : p))
-                                        setNotification({content: `${personToUpdate.name} ${personToUpdate.number} updated with ${response.name} ${response.number}`, type: 'positive'})
+                                        const message = {content: `${personToUpdate.name} ${personToUpdate.number} updated with ${response.name} ${response.number}`, type: 'positive'}
+                                        setNotification(message)
                                         setTimeout(() => {
                                           setNotification({})
                                         }, 5000)
                                       })
+                      .catch(error => {
+                      setNotification({content: `${personToUpdate.name} no longer exists`, type: 'negative'})
+                      setPersons(persons.filter(p => p.id !== personToUpdate.id))
+                      setTimeout(() => {
+                        setNotification({})
+                      },5000)
+                    })
       }
     }
     setNewName('')
@@ -69,11 +78,25 @@ const App = () => {
   }
 
   const handleDeletePerson = (id) => {
-    const deletedPerson = persons.find(p => p.id === id)
-    if(window.confirm(`do you really want to delete ${deletedPerson.name} ?`)) {
+    const personToDelete = persons.find(p => p.id === id)
+    if(window.confirm(`do you really want to delete ${personToDelete.name} ?`)) {
       personServices
                     .deletePerson(id)
-                    .then(response => setPersons(persons.filter(p => p.name !== deletedPerson.name)))
+                    .then(response => {
+                                      setPersons(persons.filter(p => p.name !== personToDelete.name))
+                                      const message = {content: `${personToDelete.name} was deleted`, type: "negative"}
+                                      setNotification(message)
+                                      setTimeout(() => {
+                                        setNotification({})
+                                      },5000)
+                                    })
+                    .catch(error => {
+                      setNotification({content: `${personToDelete.name} no longer exists`, type: 'negative'})
+                      setPersons(persons.filter(p => p.id !== personToDelete.id))
+                      setTimeout(() => {
+                        setNotification({})
+                      },5000)
+                    })
     }                      
   }
 
