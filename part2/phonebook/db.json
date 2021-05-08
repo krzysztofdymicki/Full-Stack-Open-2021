@@ -1,8 +1,8 @@
 {
   "persons": [
     {
-      "name": "Adrian",
-      "number": "123456",
+      "name": "Krystek",
+      "number": "12222",
       "id": 1
     },
     {
@@ -11,14 +11,9 @@
       "id": 2
     },
     {
-      "name": "Krystian",
-      "number": "12345",
+      "name": "konon",
+      "number": "17",
       "id": 3
-    },
-    {
-      "name": "Adrian ",
-      "number": "1234567",
-      "id": 4
     }
   ]
 }
