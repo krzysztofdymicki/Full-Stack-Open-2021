@@ -14,6 +14,12 @@ const addPerson = (newPerson) => {
         .then(response => response.data)
 }
 
-const exp = { getAll, addPerson }
+const deletePerson = (id) => {
+    return axios
+                .delete(`${baseUrl}/${id}`)
+                .then(response => console.log(response))
+}
+
+const exp = { getAll, addPerson, deletePerson }
 
 export default exp
