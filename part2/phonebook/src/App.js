@@ -22,45 +22,54 @@ const App = () => {
   },[])
 
   const handleSubmit = (event) => {
+
     event.preventDefault()
-    if (!persons.find(p => p.name === newName || p.number === newNumber))
-    {const newObject = {
+
+    const newObject = {
       name: newName,
       number: newNumber
     }
-    personServices.addPerson(newObject)
-                                      .then(newPerson => {
-                                                          setPersons(persons.concat(newPerson))
-                                                          const message = {content: `${newPerson.name} added`, type: 'positive'}
-                                                          setNotification(message)
-                                                          setTimeout(() => {
-                                                            setNotification({})
-                                                          },5000)
-                                      })}
-    else if (persons.find(p => p.name === newName && p.number === newNumber)) window.alert(`${newName} with the number ${newNumber} already exists`)
-    else {
-      const personToUpdate = persons.find(p => p.name === newName || p.number === newNumber)
-      const updatedPerson = { name: newName, number: newNumber }
-      if(window.confirm(`Do you really want to update person ${personToUpdate.name} ${personToUpdate.number} with ${updatedPerson.name} ${updatedPerson.number} ?`)) {
+
+    const personToFind = persons.find(p => p.name === newName || p.number === newNumber)
+
+    if(personToFind) {
+      if(window.confirm(`Do you really want to update ${personToFind.name} ${personToFind.number} with ${newName} ${newNumber} ?`)) {
         personServices
-                      .updatePerson(personToUpdate.id,updatedPerson)
-                      .then(response =>{ 
-                                        setPersons(persons.map(p => p.id === response.id ? response : p))
-                                        const message = {content: `${personToUpdate.name} ${personToUpdate.number} updated with ${response.name} ${response.number}`, type: 'positive'}
-                                        setNotification(message)
-                                        setTimeout(() => {
-                                          setNotification({})
-                                        }, 5000)
-                                      })
+                      .updatePerson(personToFind.id, newObject)
+                      .then(person => {
+                        setPersons(persons.map(p => p.id === person.id ? person : p))
+                        setNotification({content: 'Record updated', type: 'positive'})
+                        setTimeout(() => {
+                          setNotification({})
+                        },5000)
+                      })
                       .catch(error => {
-                      setNotification({content: `${personToUpdate.name} no longer exists`, type: 'negative'})
-                      setPersons(persons.filter(p => p.id !== personToUpdate.id))
-                      setTimeout(() => {
-                        setNotification({})
-                      },5000)
-                    })
+                        setNotification({content: error.response.data.error, type:'negative'})
+                        setTimeout(() => {
+                          setNotification({})
+                        },5000)
+                      })
       }
-    }
+        
+    } else {
+    personServices
+                  .addPerson(newObject)
+                  .then( newPerson => {
+                    setPersons(persons.concat(newPerson))
+                    setNotification({content: 'New person added', type: 'positive'})
+                    setTimeout(() => {
+                      setNotification({})
+                    },5000)
+                  })
+                  .catch(error => {
+                    const message = error.response.data.error
+                    setNotification({content: message, type: 'negative'})
+                    setTimeout(() => {
+                      setNotification({})
+                    },5000)
+                  })
+                }
+
     setNewName('')
     setNewNumber('')
   }
