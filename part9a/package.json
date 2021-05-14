@@ -4,6 +4,8 @@
   "description": "'Full Stack 2021 part9'",
   "main": "index.js",
   "scripts": {
+    "calculateExcercises": "ts-node calculateExcercises.ts",
+    "bmi": "ts-node bmicalculator.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Krzysztof Dymicki",
