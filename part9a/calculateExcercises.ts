@@ -10,13 +10,13 @@ interface Result {
 
 
 
-const calculateExcercises = (args: Array<string>): Result => {
+const calculateExercises = (args: Array<string | number>): Result => {
 
-    if(args.length < 4) throw new Error('you provided not enough arguments');
-    if(args.slice(2).find( a => isNaN(Number(a)))) throw new Error('you should provide only numbers');
+    if(args.length < 2) throw new Error('parameters missing');
+    if(args.find( a => isNaN(Number(a)))) throw new Error('malformatted parameters');
 
-    const target = Number(args[2]);
-    const days = args.slice(3).map( d => Number(d));
+    const target = Number(args[0]);
+    const days = args.slice(1).map( d => Number(d));
     const periodLength = days.length;
     const trainingDays = days.filter(d => d > 0).length;
     const average = days.reduce((sum, day) => sum += day, 0)/periodLength;
@@ -37,16 +37,6 @@ const calculateExcercises = (args: Array<string>): Result => {
         ratingDescription = "you're awesome";
     }
 
-    console.log({
-        periodLength,
-        trainingDays,
-        target,
-        success,
-        average,
-        rating,
-        ratingDescription
-    });
-
     return {
         periodLength,
         trainingDays,
@@ -61,7 +51,9 @@ const calculateExcercises = (args: Array<string>): Result => {
 };
 
 try {
-    calculateExcercises(process.argv);
+    calculateExercises(process.argv);
 } catch(e) {
     console.log('someting gone wrong', e.message);
 }
+
+export default calculateExercises
