@@ -1,20 +1,20 @@
-import express from 'express'
-import bmiCalculator from './bmicalculator'
+import express from 'express';
+import bmiCalculator from './bmicalculator';
 
-const app = express()
+const app = express();
 
 app.get('/hello', (_req, res) => {
-    res.send('Hello Fullstack')
-})
+    res.send('Hello Fullstack');
+});
 
 app.get('/bmi', (req, res) => {
-    const {height, weight} = req.query
-    const healthState = bmiCalculator(Number(height), Number(weight))
-    res.json(healthState)
-})
+    const {height, weight} = req.query;
+    const healthState = bmiCalculator(Number(height), Number(weight));
+    res.json(healthState);
+});
 
-const PORT = 3001
+const PORT = 3001;
 
 app.listen(PORT, () => {
-    console.log(`Server running on PORT ${PORT}`)
-})
+    console.log(`Server running on PORT ${PORT}`);
+});
