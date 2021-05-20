@@ -1,7 +1,0 @@
-POST http://localhost:3001/exercises
-Content-Type: application/json
-
-{
-    "daily_exercises": [{"id":2},2,4,3,2],
-    "target": 2
-}
