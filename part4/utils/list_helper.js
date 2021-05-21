@@ -8,7 +8,17 @@ const totalLikes = (array) => {
     : array.reduce((sum, e) => sum + e.likes, 0)
 }
 
+const favouriteBlog = (array) => {
+  if(array.length === 0) {
+    return {}
+  }else {
+    const firstBlog = array[0]
+    return array.reduce((prev,cur) => cur.likes >= prev.likes ? cur : prev, firstBlog)
+  }
+}
+
 module.exports = {
   dummy,
-  totalLikes
+  totalLikes,
+  favouriteBlog
 };
