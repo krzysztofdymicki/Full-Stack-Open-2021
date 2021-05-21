@@ -30,7 +30,22 @@ describe('GET', () => {
     })
   })
 
+})
 
+describe('POST', () => {
+
+  test('/api/blogs creates new post succesfully', async () => {
+    initialLength = initialBlogs.length
+    const response = await api
+      .post('/api/blogs')
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    const afterPosting = await blogsInDb()
+
+    expect(afterPosting).toHaveLength(initialLength + 1)
+  
+  })
 })
 
 afterAll(() => {
