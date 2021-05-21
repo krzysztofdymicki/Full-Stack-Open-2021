@@ -2,6 +2,7 @@ const { beforeEach, afterAll } = require('@jest/globals')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
+const Blog = require('../models/Blog')
 
 const { initialBlogs, initializeBlogsToDb, blogsInDb } = require('../utils/blogList_test_helper')
 
@@ -45,6 +46,19 @@ describe('POST', () => {
 
     expect(afterPosting).toHaveLength(initialLength + 1)
   
+  })
+
+  test('/api/blogs attaching 0 as default when "likes" propery is missing', async () => {
+    const blogWithoutLikes = new Blog({
+      title: "without likes",
+      author: "krzysztof d",
+      url: "blablabla"
+    })
+
+    const response = await api
+      .post('/api/blogs', blogWithoutLikes)
+
+    expect(response.body).toHaveProperty('likes', 0)
   })
 })
 
