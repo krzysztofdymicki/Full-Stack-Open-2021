@@ -1,6 +1,7 @@
 const config = require("./utils/config");
 const logger = require("./utils/logger");
 const blogRouter = require("./controllers/blogs");
+const middleware = require('./utils/middleware')
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
@@ -18,5 +19,7 @@ mongoose.connect(config.MONGODB_URI, {
 });
 
 app.use("/api/blogs", blogRouter);
+//app.use(middleware.errorHandler)
+
 
 module.exports = app;

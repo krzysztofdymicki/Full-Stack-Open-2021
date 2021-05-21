@@ -33,12 +33,21 @@ describe('GET', () => {
 
 })
 
-describe('POST', () => {
+/*describe('POST', () => {
 
-  test('/api/blogs creates new post succesfully', async () => {
+  test('/api/blogs creates new blog succesfully', async () => {
+
     initialLength = initialBlogs.length
+    const newBlog = new Blog({
+      title: "without likes",
+      author: "krzysztof d",
+      url: "blablabla",
+      likes: 2
+    })
+
     const response = await api
       .post('/api/blogs')
+      .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
 
@@ -49,6 +58,7 @@ describe('POST', () => {
   })
 
   test('/api/blogs attaching 0 as default when "likes" propery is missing', async () => {
+
     const blogWithoutLikes = new Blog({
       title: "without likes",
       author: "krzysztof d",
@@ -56,11 +66,35 @@ describe('POST', () => {
     })
 
     const response = await api
-      .post('/api/blogs', blogWithoutLikes)
+      .post('/api/blogs')
+      .send(blogWithoutLikes)
 
     expect(response.body).toHaveProperty('likes', 0)
   })
-})
+
+  test('/api/blogs responds with 400(Bad Request) when title/url is missing', async () => {
+
+    const blogWithoutTitle = new Blog({
+      author: "krzysztof",
+      url: "blabla"
+    })
+    const blogWithoutUrl = new Blog({
+      title: "blabla",
+      author: "blabka"
+    })
+
+    await api
+      .post('/api/blogs')
+      .send(blogWithoutTitle)
+      .expect(400)
+    
+    await api
+      .post('/api/blogs')
+      .send(blogWithoutUrl)
+      .expect(400)
+
+  }) 
+})*/
 
 afterAll(() => {
   mongoose.connection.close()
