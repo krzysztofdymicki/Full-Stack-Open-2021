@@ -22,6 +22,14 @@ describe('GET', () => {
     expect(response.body).toHaveLength(initialLength)
   })
 
+  test('returned blogs has "id" property', async () => {
+
+    const response = await api.get('/api/blogs')
+    response.body.map( b => {
+      expect(b).toHaveProperty('id')
+    })
+  })
+
 
 })
 
