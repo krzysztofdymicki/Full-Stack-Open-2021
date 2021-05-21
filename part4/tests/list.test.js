@@ -1,4 +1,4 @@
-const { totalLikes, favouriteBlog } = require("../utils/list_helper");
+const { totalLikes, favouriteBlog } = require("../utils/list_test_helper");
 
 const aLotOfBlogs = [
   {
