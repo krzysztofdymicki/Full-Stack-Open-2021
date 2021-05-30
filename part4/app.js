@@ -2,6 +2,7 @@ const config = require("./utils/config");
 //const logger = require("./utils/logger");
 const blogRouter = require("./controllers/blogs");
 const userRouter = require('./controllers/users')
+const loginRouter = require('./controllers/login')
 const { unknownEndpoint, errorHandler } = require('./utils/middleware')
 const mongoose = require("mongoose");
 const express = require("express");
@@ -19,6 +20,7 @@ mongoose.connect(config.MONGODB_URI, {
   useCreateIndex: true,
 });
 
+app.use('/api/login', loginRouter)
 app.use('/api/users', userRouter)
 app.use("/api/blogs", blogRouter);
 
