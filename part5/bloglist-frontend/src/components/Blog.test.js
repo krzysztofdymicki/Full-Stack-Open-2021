@@ -5,7 +5,7 @@ import Blog from './Blog'
 
 test('by default renders only the title, and the rest after clicking', () => {
 
-  const blog = {
+  let blog = {
     title: 'testTitle',
     author: 'testAuthor',
     url: 'testUrl',
@@ -13,7 +13,7 @@ test('by default renders only the title, and the rest after clicking', () => {
     id: 111111999
   }
 
-  const component = render(
+  let component = render(
     <Blog blog={blog} updatelikes={() => console.log('mock')} />
   )
 
@@ -40,5 +40,32 @@ test('by default renders only the title, and the rest after clicking', () => {
   expect(author).toBeDefined()
   expect(url).toBeDefined()
   expect(likes).toBeDefined()
+
+})
+
+test('like button clicked twice makes handler fire twice', () => {
+
+  let blog = {
+    title: 'testTitle',
+    author: 'testAuthor',
+    url: 'testUrl',
+    likes: 0,
+    id: 111111999
+  }
+
+  let mockHandler = jest.fn()
+
+  const component = render(
+    <Blog blog={blog} updateLikes={mockHandler} />
+  )
+
+  const openButton = component.container.querySelector('.open')
+
+  fireEvent.click(openButton)
+  const likeButton = component.container.querySelector('.like')
+  fireEvent.click(likeButton)
+  fireEvent.click(likeButton)
+
+  expect(mockHandler.mock.calls).toHaveLength(2)
 
 })

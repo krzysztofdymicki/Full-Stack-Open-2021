@@ -27,7 +27,7 @@ const Blog = ({blog, updateLikes /*removeBlog, user*/}) => {
         <p className='author'>author: {blog.author}</p>
         <p className='url'>url: {blog.url}</p>
         <p className='likes'>likes: {blog.likes}</p> <br></br> 
-        <button onClick={() => updateLikes({likes: blog.likes + 1}, blog)}>LIKE</button>
+        <button className='like' onClick={() => updateLikes({likes: blog.likes + 1}, blog)}>LIKE</button>
         <button onClick={handleVisibility}>CLOSE</button>
         {/*isAuthor() ? <button onClick={() => removeBlog(blog)}>DELETE</button> : null*/}
       </div>
