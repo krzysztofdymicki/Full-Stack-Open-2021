@@ -3,10 +3,11 @@ import axios from 'axios'
 const baseUrl = '/api/blogs'
 
 let token = null
-console.log(token)
+
 const setToken = (newToken) => {
   token = `bearer ${newToken}`
 }
+
 
 const getAll = () => {
   const request = axios.get(baseUrl)
