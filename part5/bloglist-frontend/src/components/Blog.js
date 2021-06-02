@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 
-const Blog = ({blog, updateLikes}) => {
+const Blog = ({blog, updateLikes /*removeBlog, user*/}) => {
 
   const [visible, setVisible] = useState(false)
 
-  const handleVisibility = (event) => {
+  const handleVisibility = () => {
     setVisible(!visible)
+    console.log(blog)
   }
 
   const style = {
@@ -17,6 +18,8 @@ const Blog = ({blog, updateLikes}) => {
     borderRadius: '1em'
   }
 
+  //const isAuthor = () => blog.user === user.id ? true : false
+
   return visible 
     ? (
       <div style={style}>
@@ -26,6 +29,7 @@ const Blog = ({blog, updateLikes}) => {
         <p>likes: {blog.likes}</p> <br></br> 
         <button onClick={() => updateLikes({likes: blog.likes + 1}, blog)}>LIKE</button>
         <button onClick={handleVisibility}>CLOSE</button>
+        {/*isAuthor() ? <button onClick={() => removeBlog(blog)}>DELETE</button> : null*/}
       </div>
     )
     : (

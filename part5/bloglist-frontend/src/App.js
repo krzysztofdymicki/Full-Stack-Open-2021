@@ -73,7 +73,10 @@ const App = () => {
                 setNotification={setNotification}
                 />
       </Togglable>
-      <Blogs blogs={blogs} setBlogs={setBlogs} />
+      <Blogs blogs={blogs}
+             setBlogs={setBlogs}
+             /*user={user}*/
+              />
     </div>
   )
 }
