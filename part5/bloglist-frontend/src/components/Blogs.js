@@ -9,7 +9,9 @@ const Blogs = ({ blogs, setBlogs }) => {
     setBlogs(blogs.map(b => b.id === newBlog.id ? newBlog : b))
   }
 
-  return (blogs.map(b => <Blog key={b.id} blog={b} updateLikes={updateLikes}/>))
+  return (blogs
+              .sort((a,b) => b.likes - a.likes)
+              .map(b => <Blog key={b.id} blog={b} updateLikes={updateLikes}/>))
 }
 
 export default Blogs
