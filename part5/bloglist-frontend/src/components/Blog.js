@@ -34,7 +34,7 @@ const Blog = ({blog, updateLikes /*removeBlog, user*/}) => {
     )
     : (
       <div>
-      <p onClick={handleVisibility}>{blog.title}</p>
+        <p className='open' onClick={handleVisibility}>{blog.title}</p>
       </div>
     )
 }
