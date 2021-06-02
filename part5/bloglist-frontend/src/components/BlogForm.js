@@ -1,13 +1,20 @@
 import React from 'react'
 import blogService from '../services/blogs'
 
-const BlogForm = ({ blog, setBlog, blogs, setBlogs }) => {
+const BlogForm = ({ blog, setBlog, blogs, setBlogs, setNotification }) => {
 
   const handleBlogForm = async (event) => {
     event.preventDefault()
     try {
       const newBlog = await blogService.create(blog)
       setBlogs(blogs.concat(newBlog))
+      setNotification({
+        type: 'positive',
+        content: 'new blog added'
+      })
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000)
     } catch {
       console.log('something happened')
     }
