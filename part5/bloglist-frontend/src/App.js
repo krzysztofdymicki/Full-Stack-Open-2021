@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import Togglable from './components/Togglable'
 import Blog from './components/Blog'
 import BlogForm from './components/BlogForm'
 import Login from './components/Login'
@@ -6,16 +7,14 @@ import Notification from './components/Notification'
 import blogService from './services/blogs'
 
 const App = () => {
+
+  // STATE
+
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [blog, setBlog] = useState({
-    title: '',
-    author: '',
-    url: ''
-  })
   const [notification, setNotification] = useState(null)
+
+  // EFFECTS
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -33,6 +32,12 @@ const App = () => {
     }
   },[])
 
+  // REFERENCES
+
+  const blogFormTogglableRef = useRef()
+
+  // FUNCTIONALITY
+
   const handleLogOut = (event) => {
     event.preventDefault()
     setUser(null)
@@ -40,30 +45,34 @@ const App = () => {
     blogService.setToken(null)
   }
 
+  // CONTENT SHOWN WHEN USER IS LOGGED OUT
+
   if(!user) return (
     <div>
       {notification && <Notification notification={notification} />}
-      <Login setUsername={setUsername}
-             setPassword={setPassword}
+      <Togglable buttonLabel='login' >
+      <Login 
              setUser={setUser}
-             username={username}
-             password={password}
              setNotification={setNotification}
              />
+       </Togglable>
     </div>
   )
+
+  // CONTENT SHOWN WHEN USER IS LOGGED IN
 
   return (
     <div>
       {notification && <Notification notification={notification} />}
       <h2>blogs</h2>
       <p>User {user.name} is logged in</p> <button onClick={handleLogOut}>Log out</button>
-      <BlogForm blog={blog}
-                setBlog={setBlog}
+      <Togglable buttonLabel='new blog' ref={blogFormTogglableRef} >
+      <BlogForm blogFormTogglableRef={blogFormTogglableRef}
                 blogs={blogs}
                 setBlogs={setBlogs}
                 setNotification={setNotification}
                 />
+      </Togglable>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}

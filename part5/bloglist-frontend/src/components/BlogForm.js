@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
-const BlogForm = ({ blog, setBlog, blogs, setBlogs, setNotification }) => {
+const BlogForm = ({ blogs, setBlogs, setNotification, blogFormTogglableRef }) => {
+
+  const [blog, setBlog] = useState({
+    title: '',
+    author: '',
+    url: ''
+  })
 
   const handleBlogForm = async (event) => {
     event.preventDefault()
@@ -12,6 +18,7 @@ const BlogForm = ({ blog, setBlog, blogs, setBlogs, setNotification }) => {
         type: 'positive',
         content: 'new blog added'
       })
+      blogFormTogglableRef.current()
       setTimeout(() => {
         setNotification(null)
       }, 5000)
@@ -21,7 +28,7 @@ const BlogForm = ({ blog, setBlog, blogs, setBlogs, setNotification }) => {
   }
 
   return (
-    <form onSubmit={handleBlogForm}>
+    <form onSubmit={ handleBlogForm }>
     <h2>Create new</h2>
     <div>
       <div> title <input onChange={({ target }) => setBlog({...blog, title: target.value})}/></div>
