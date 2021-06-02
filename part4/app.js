@@ -24,6 +24,11 @@ app.use('/api/login', loginRouter)
 app.use('/api/users', userRouter)
 app.use("/api/blogs", blogRouter);
 
+if(process.env.NODE_ENV === test) {
+  const cypressRouter = require('./controllers/cypress')
+  app.use('/api/testing', cypressRouter)
+}
+
 app.use(unknownEndpoint)
 
 app.use(errorHandler)
