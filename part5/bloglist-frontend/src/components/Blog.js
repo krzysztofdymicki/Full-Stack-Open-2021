@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-const Blog = ({blog}) => {
+
+const Blog = ({blog, updateLikes}) => {
 
   const [visible, setVisible] = useState(false)
 
   const handleVisibility = (event) => {
-    event.preventDefault()
     setVisible(!visible)
   }
 
@@ -24,7 +24,7 @@ const Blog = ({blog}) => {
         <p>author: {blog.author}</p>
         <p>url: {blog.url}</p>
         <p>likes: {blog.likes}</p> <br></br> 
-        <button>LIKE</button>
+        <button onClick={() => updateLikes({likes: blog.likes + 1}, blog)}>LIKE</button>
         <button onClick={handleVisibility}>CLOSE</button>
       </div>
     )

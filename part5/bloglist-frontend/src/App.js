@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Togglable from './components/Togglable'
-import Blog from './components/Blog'
+import Blogs from './components/Blogs'
 import BlogForm from './components/BlogForm'
 import Login from './components/Login'
 import Notification from './components/Notification'
@@ -73,9 +73,7 @@ const App = () => {
                 setNotification={setNotification}
                 />
       </Togglable>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
+      <Blogs blogs={blogs} setBlogs={setBlogs} />
     </div>
   )
 }
