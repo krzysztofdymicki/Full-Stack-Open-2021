@@ -23,10 +23,10 @@ const Blog = ({blog, updateLikes /*removeBlog, user*/}) => {
   return visible 
     ? (
       <div style={style}>
-        <p>title: {blog.title}</p>
-        <p>author: {blog.author}</p>
-        <p>url: {blog.url}</p>
-        <p>likes: {blog.likes}</p> <br></br> 
+        <p className='title'>title: {blog.title}</p>
+        <p className='author'>author: {blog.author}</p>
+        <p className='url'>url: {blog.url}</p>
+        <p className='likes'>likes: {blog.likes}</p> <br></br> 
         <button onClick={() => updateLikes({likes: blog.likes + 1}, blog)}>LIKE</button>
         <button onClick={handleVisibility}>CLOSE</button>
         {/*isAuthor() ? <button onClick={() => removeBlog(blog)}>DELETE</button> : null*/}
