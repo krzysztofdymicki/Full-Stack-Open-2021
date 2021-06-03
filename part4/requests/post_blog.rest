@@ -1,8 +1,9 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkNyaXMiLCJpZCI6IjYwYjNhYmY0ZDJiZWY4NjY3YzVjYmRhZiIsImlhdCI6MTYyMjM5OTIyOX0.3cYrv9m8XjCUC_UILplH2zmr1rePVneqj7qFFrXGs5U
 
 {
-    "title": "first blog",
+    "title": "thirdBlog",
     "author": "Krzysztof D",
     "url": "url/url/url",
     "likes": 0
