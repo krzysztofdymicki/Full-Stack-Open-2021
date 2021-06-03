@@ -30,7 +30,7 @@ const Login = ({ setUser, setNotification }) => {
 
 
  return (
-  <form onSubmit={handleLogin}>
+  <form onSubmit={handleLogin} id='login-form'>
     <div>
     username <input value={username} onChange={({ target }) => setUsername(target.value)} />
     </div>

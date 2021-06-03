@@ -13,6 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+console.log(config.MONGODB_URI)
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -24,7 +25,7 @@ app.use('/api/login', loginRouter)
 app.use('/api/users', userRouter)
 app.use("/api/blogs", blogRouter);
 
-if(process.env.NODE_ENV === test) {
+if(process.env.NODE_ENV === "test") {
   const cypressRouter = require('./controllers/cypress')
   app.use('/api/testing', cypressRouter)
 }
