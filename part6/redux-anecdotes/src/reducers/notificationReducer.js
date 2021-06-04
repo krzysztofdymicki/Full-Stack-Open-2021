@@ -25,6 +25,7 @@ const notificationReducer = (state = 'notification', action) => {
 
 export const setNotification = (notification,time) => {
   return async dispatch => {
+    clearTimeout()
     await setTimeout(() => {
       dispatch({
         type: 'RESET_NOTIFICATION',
