@@ -11,10 +11,10 @@ const AnecdotesList = () => {
   } )
   const dispatch = useDispatch()
 
-  const vote = (anecdote) => {
-    dispatch(voteFor(anecdote.id))
+  const vote = async (anecdote) => {
+    dispatch(voteFor(anecdote))
     dispatch(newNotification(`You voted for ${anecdote.content}`))
-    return setInterval(() => {
+    return setTimeout(() => {
       dispatch(resetNotification())
     }, 5000)
   }
