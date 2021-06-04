@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { voteFor } from '../reducers/anecdoteReducer'
-import { newNotification, resetNotification } from '../reducers/notificationReducer'
+import { setNotification } from '../reducers/notificationReducer'
 
 const AnecdotesList = () => {
 
@@ -13,10 +13,7 @@ const AnecdotesList = () => {
 
   const vote = async (anecdote) => {
     dispatch(voteFor(anecdote))
-    dispatch(newNotification(`You voted for ${anecdote.content}`))
-    return setTimeout(() => {
-      dispatch(resetNotification())
-    }, 5000)
+    dispatch(setNotification(`You voted for ${anecdote.content}`, 5))
   }
 
   return (
